@@ -290,9 +290,13 @@ connection.onHover((textDocumentPosition, token) => {
 			const mode = languageModes.getModeAtPosition(document, textDocumentPosition.position);
 			if (mode && mode.doHover) {
 				return mode.doHover(document, textDocumentPosition.position);
+			} else {
+				return null;
 			}
+		} else {
+			console.error(`File ${textDocumentPosition.textDocument.uri} not found. Make sure a textDocument/didOpen notification is sent before requesting hovers.`);
+			return null;
 		}
-		return null;
 	}, null, `Error while computing hover for ${textDocumentPosition.textDocument.uri}`, token);
 });
 
