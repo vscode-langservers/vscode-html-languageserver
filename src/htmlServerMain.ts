@@ -93,7 +93,7 @@ connection.onInitialize((params: InitializeParams): InitializeResult => {
 		get settings() { return globalSettings; },
 		get folders() { return workspaceFolders; }
 	};
-	languageModes = getLanguageModes(initializationOptions ? initializationOptions.embeddedLanguages : { css: true, javascript: true }, workspace);
+	languageModes = getLanguageModes((initializationOptions && initializationOptions.embeddedLanguages) || { css: true, javascript: true }, workspace);
 	documents.onDidClose(e => {
 		languageModes.onDocumentRemoved(e.document);
 	});
